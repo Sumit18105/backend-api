@@ -28,6 +28,22 @@ class Doctor_Authentication(models.Model):
     email = models.EmailField(primary_key=True)
     password = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
+    language_preference = models.CharField(
+        max_length=15,
+        choices=[
+            ('EN', 'English'),
+            ('HN', 'Hindi'),
+            ('Tl', 'Telugu'),
+            ('KN', 'Kannada')
+        ]
+    )
+    experience = models.IntegerField()
+
+    # Media Files
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    qualifications_proof = models.ImageField(upload_to='qualification_proofs/', blank=True, null=True)
+    id_proof = models.ImageField(upload_to='id_proofs/', blank=True, null=True)
+
     specialization = models.CharField(max_length=20,
                                       choices=[
                                             ('DVM', 'Doctor of Veterinary Medicine (DVM)'),
@@ -46,7 +62,6 @@ class Doctor_Authentication(models.Model):
                                             ('other', 'Other')
 
                                       ])
-    experience = models.IntegerField()
     qualifications = models.CharField(max_length=200,choices=[
         ('Small Animal Surgery', 'Small Animal Surgery'),
         ('Large Animal Surgery', 'Large Animal Surgery'),
@@ -72,3 +87,13 @@ class Doctor_Authentication(models.Model):
         ('other', 'Other')
     ])
     about = models.TextField()
+    number_of_consultations = models.IntegerField(default = 0)
+
+class Accounts_Details(models.Model):
+    email = models.ForeignKey(Doctor_Authentication, on_delete = models.CASCADE)
+    toatal_earning = models.IntegerField(default = 0)
+    total_refunds = models.IntegerField(default = 0)
+    bank_name = models.CharField(max_length = 20)
+    branch_name = models.CharField(max_length = 20)
+    account_number = models.IntegerField()
+    ifsc_code = models.CharField(max_length = 20)
