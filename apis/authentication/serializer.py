@@ -5,4 +5,7 @@ class User_Authentication_Serializer(serializers.ModelSerializer):
     class Meta:
         model = models.User_Authentication
         fields = '__all__'
-        
+class Doctor_Authentication_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Doctor_Authentication
+        fields = '__all__'
